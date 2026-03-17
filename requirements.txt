@@ -1,7 +1,10 @@
 annotated-doc==0.0.4
 annotated-types==0.7.0
 anyio==4.12.1
+argon2-cffi==25.1.0
+argon2-cffi-bindings==25.1.0
 bcrypt==5.0.0
+cffi==2.0.0
 click==8.3.1
 ecdsa==0.19.1
 fastapi==0.135.1
@@ -10,6 +13,7 @@ h11==0.16.0
 idna==3.11
 passlib==1.7.4
 pyasn1==0.6.2
+pycparser==3.0
 pydantic==2.12.5
 pydantic-settings==2.13.1
 pydantic_core==2.41.5
