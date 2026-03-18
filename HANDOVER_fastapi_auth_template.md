@@ -126,3 +126,63 @@ To continue the project:
 2.  Review README.md.
 3.  Confirm dependencies.
 4.  Decide next authentication feature to implement.
+
+
+### 3/18/2026 — Authentication Improvements
+
+**Changes Implemented**
+
+* Updated authentication login route to use `OAuth2PasswordRequestForm` instead of a JSON body so that FastAPI Swagger can perform the OAuth2 password flow correctly.
+* Updated `OAuth2PasswordBearer` configuration so Swagger automatically handles token authentication.
+* Added CORS middleware to `main.py` to allow requests from a React frontend running on `localhost:3000`.
+* Updated `get_current_user` dependency to decode the JWT token and fetch the corresponding user record from the database instead of returning only the username.
+* Added a protected `/profile` endpoint that returns authenticated user information (`id`, `username`, `email`) for frontend testing.
+
+**Purpose of Changes**
+
+These updates allow the project to:
+
+* Work properly with Swagger’s **Authorize** functionality.
+* Allow a **React frontend** to authenticate and call the API without CORS issues.
+* Demonstrate **JWT verification with a real protected endpoint**.
+* Return full user information for authenticated requests.
+
+**Authentication Flow After Changes**
+
+1. User registers using `/register`.
+2. User logs in using `/login` (OAuth2 password form).
+3. API returns a JWT access token.
+4. Client stores the token.
+5. Client sends requests with `Authorization: Bearer <token>`.
+6. `get_current_user` decodes the token and retrieves the user from the database.
+7. Protected endpoints (such as `/profile`) return user-specific data.
+
+**Files Updated**
+
+* `app/api/auth_routes.py`
+
+  * Login route now uses `OAuth2PasswordRequestForm`
+  * Added `/profile` protected route
+
+* `app/dependencies/auth_dependencies.py`
+
+  * JWT decoding logic
+  * Database lookup for authenticated user
+
+* `app/main.py`
+
+  * Added `CORSMiddleware`
+  * Allowed React development origins (`localhost:3000`)
+
+**Current State of Authentication System**
+
+The API now supports:
+
+* user registration
+* OAuth2-compatible login
+* JWT access tokens
+* protected routes
+* profile endpoint for frontend testing
+* React-compatible CORS configuration
+
+This establishes a **complete minimal JWT authentication flow** suitable for frontend integration testing.
